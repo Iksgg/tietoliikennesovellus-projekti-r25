@@ -1,0 +1,13 @@
+# Target labels
+ mittaus_ja_siirto
+# Source files and their labels
+C:/tietoliikennesovellus-projekti-r25/code/mittaus_ja_siirto/build/_sysbuild/sysbuild/images/CMakeFiles/mittaus_ja_siirto
+C:/tietoliikennesovellus-projekti-r25/code/mittaus_ja_siirto/build/_sysbuild/sysbuild/images/CMakeFiles/mittaus_ja_siirto.rule
+C:/tietoliikennesovellus-projekti-r25/code/mittaus_ja_siirto/build/_sysbuild/sysbuild/images/CMakeFiles/mittaus_ja_siirto-complete.rule
+C:/tietoliikennesovellus-projekti-r25/code/mittaus_ja_siirto/build/_sysbuild/sysbuild/images/mittaus_ja_siirto-prefix/src/mittaus_ja_siirto-stamp/mittaus_ja_siirto-build.rule
+C:/tietoliikennesovellus-projekti-r25/code/mittaus_ja_siirto/build/_sysbuild/sysbuild/images/mittaus_ja_siirto-prefix/src/mittaus_ja_siirto-stamp/mittaus_ja_siirto-configure.rule
+C:/tietoliikennesovellus-projekti-r25/code/mittaus_ja_siirto/build/_sysbuild/sysbuild/images/mittaus_ja_siirto-prefix/src/mittaus_ja_siirto-stamp/mittaus_ja_siirto-download.rule
+C:/tietoliikennesovellus-projekti-r25/code/mittaus_ja_siirto/build/_sysbuild/sysbuild/images/mittaus_ja_siirto-prefix/src/mittaus_ja_siirto-stamp/mittaus_ja_siirto-install.rule
+C:/tietoliikennesovellus-projekti-r25/code/mittaus_ja_siirto/build/_sysbuild/sysbuild/images/mittaus_ja_siirto-prefix/src/mittaus_ja_siirto-stamp/mittaus_ja_siirto-mkdir.rule
+C:/tietoliikennesovellus-projekti-r25/code/mittaus_ja_siirto/build/_sysbuild/sysbuild/images/mittaus_ja_siirto-prefix/src/mittaus_ja_siirto-stamp/mittaus_ja_siirto-patch.rule
+C:/tietoliikennesovellus-projekti-r25/code/mittaus_ja_siirto/build/_sysbuild/sysbuild/images/mittaus_ja_siirto-prefix/src/mittaus_ja_siirto-stamp/mittaus_ja_siirto-update.rule

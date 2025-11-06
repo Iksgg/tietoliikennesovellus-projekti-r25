@@ -3,10 +3,11 @@ Tietoliikenteen sovellus projekti joka suoritetaan osana Tieto- ja viestintätek
 
 
 ## Arkkitehtuuri
-
+![Arkkitehtuuri kuva](/documetns/Arkkitehtuurikuva.drawio.png)
 
 ## Tavoitteet
 ### Mittaus
+Mittaukseen käytetään kiihtyvyys anturia ja Nordik nRF5340 devKit alustaa. Mittaus edellyttää ohjelman luontia joka kykeneen ottamaan vastaan anturin mittaamat arvot ja lähettää ne BLE yhteyden yli.
 ### Tiedonsiirto
 ### Hyödyntäminen
 

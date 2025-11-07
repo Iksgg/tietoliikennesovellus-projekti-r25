@@ -21,7 +21,7 @@ static const struct bt_le_adv_param *adv_param = BT_LE_ADV_PARAM(
 	801, /* Max Advertising Interval 500.625ms (801*0.625ms) */
 	NULL); /* Set to NULL for undirected advertising */
 
-LOG_MODULE_REGISTER(Lesson4_Exercise2, LOG_LEVEL_INF);
+LOG_MODULE_REGISTER(Kiihtyvyys_Mittaus, LOG_LEVEL_INF);
 
 #define DEVICE_NAME CONFIG_BT_DEVICE_NAME
 #define DEVICE_NAME_LEN (sizeof(DEVICE_NAME) - 1)
@@ -104,11 +104,13 @@ void send_data_thread(void)
 		m.y = 200;
 		m.z = 300;
 		m.pos = current_pos;
+		
 
 		/* sensor data */
 		update_sensor_data();
+		printk(" X=%d, Y=%d, Z=%d\n", app_sensor_data.x, app_sensor_data.y, app_sensor_data.z);
 		/* Send notification, the function sends notifications only if a client is subscribed */
-		my_lbs_send_sensor_notify(&m);
+		my_lbs_send_sensor_notify(&app_sensor_data);
 		k_sleep(K_MSEC(NOTIFY_INTERVAL));
 	}
 }
@@ -171,7 +173,14 @@ int main(void)
 	int blink_status = 0;
 	int err;
 
-	LOG_INF("Starting Lesson 4 - Exercise 2 \n");
+	LOG_INF("Starting Measurements\n");
+
+	err = initializeADC();
+	if (err) {
+		LOG_ERR("ADC init failled (err %d)\n", err);
+		return -1;
+	}
+
 
 	err = dk_leds_init();
 	if (err) {

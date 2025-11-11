@@ -1,9 +1,17 @@
 import asyncio
-
 from bleak import BleakClient
 from bleak.exc import BleakCharacteristicNotFoundError
 import mysql.connector
 import struct
+from dotenv import load_dotenv
+import os
+
+db_host = os.getenv("DB_HOST")
+db_user = os.getenv("DB_USER")
+db_pass = os.getenv("DB_PASS")
+db_name = os.getenv("DB_NAME")
+db_port = int(os.getenv("DB_PORT", 3306))
+
 
 char_uuid = "00001526-1212-EFDE-1523-785FEABCD123"
 address = "CF:01:6D:B4:C3:83"
@@ -18,11 +26,11 @@ def notif_callback(sender, data: bytearray):
 
 def send_data(x,y,z,pos,from_mac,to_mac,groupid=25):
         try:
-                conn = mysql.connector.connect(host="172.20.241.9", 
-                                               user="dbaccess_rw", 
-                                               password="fasdjkf2389vw2c3k234vk2f3", 
-                                               database="measurements", 
-                                               port=3306,
+                conn = mysql.connector.connect(host=db_host, 
+                                               user=db_user, 
+                                               password=db_pass, 
+                                               database=db_name, 
+                                               port=db_port,
                                                auth_plugin='mysql_native_password')
                 try:
                         cur = conn.cursor()

@@ -1,0 +1,15 @@
+# Ignore build directories and virtual environments
+**/build/
+code/bleaktesti/myenv
+
+.vscode/
+
+
+.venv/
+venv/
+env/
+myenv/
+
+
+__pycache__/
+*.pyc

@@ -9,6 +9,7 @@ code/bleaktesti/myenv
 venv/
 env/
 myenv/
+*.env
 
 
 __pycache__/

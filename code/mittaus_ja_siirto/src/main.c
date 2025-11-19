@@ -40,7 +40,7 @@ LOG_MODULE_REGISTER(Kiihtyvyys_Mittaus, LOG_LEVEL_INF);
 #define PRIORITY 7
 
 #define RUN_LED_BLINK_INTERVAL 1000
-#define NOTIFY_INTERVAL 500
+#define NOTIFY_INTERVAL 10
 
 static bool app_button_state;
 static bool recording = false;
@@ -127,9 +127,11 @@ static void button_changed(uint32_t button_state, uint32_t has_changed)
 	if ((has_changed & USER_BUTTON_2) && (button_state & USER_BUTTON_2)){
 		if (current_pos < 5){
 			current_pos++;
+			printk("Current position: %d\n", current_pos);
 		}
 		else{
 			current_pos = 0;
+			printk("Current position: %d\n", current_pos);
 		}
 		
 	}
@@ -139,10 +141,10 @@ static void button_changed(uint32_t button_state, uint32_t has_changed)
 
 		if (recording){
 			dk_set_led_on(USER_LED);
-			printk("Recording...");
+			printk("Recording... \n");
 		} else {
 			dk_set_led_off(USER_LED);
-			printk("Recording Stopped!");
+			printk("Recording Stopped!\n");
 		}
 	}
 

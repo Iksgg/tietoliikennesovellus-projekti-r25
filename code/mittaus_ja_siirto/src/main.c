@@ -11,15 +11,16 @@
 #include <zephyr/bluetooth/uuid.h>
 #include <zephyr/bluetooth/conn.h>
 #include <dk_buttons_and_leds.h>
+
 #include "my_lbs.h"
 #include "adc.h"
 
 static const struct bt_le_adv_param *adv_param = BT_LE_ADV_PARAM(
 	(BT_LE_ADV_OPT_CONN |
-	 BT_LE_ADV_OPT_USE_IDENTITY), /* Connectable advertising and use identity address */
-	800, /* Min Advertising Interval 500ms (800*0.625ms) */
-	801, /* Max Advertising Interval 500.625ms (801*0.625ms) */
-	NULL); /* Set to NULL for undirected advertising */
+	 BT_LE_ADV_OPT_USE_IDENTITY), 	/* Connectable advertising and use identity address */
+	800, 							/* Min Advertising Interval 500ms (800*0.625ms) */
+	801, 							/* Max Advertising Interval 500.625ms (801*0.625ms) */
+	NULL); 							/* Set to NULL for undirected advertising */
 
 LOG_MODULE_REGISTER(Kiihtyvyys_Mittaus, LOG_LEVEL_INF);
 
@@ -42,6 +43,7 @@ LOG_MODULE_REGISTER(Kiihtyvyys_Mittaus, LOG_LEVEL_INF);
 #define NOTIFY_INTERVAL 500
 
 static bool app_button_state;
+static bool recording = false;
 static struct k_work adv_work;
 static struct Measurement app_sensor_data;
 static uint8_t current_pos = 0;
@@ -98,19 +100,19 @@ static bool app_button_cb(void)
 void send_data_thread(void)
 {
 	while (1) {
-		/* Simulated ADC */
-		struct Measurement m;
-		m.x = 100;
-		m.y = 200;
-		m.z = 300;
-		m.pos = current_pos;
-		
 
-		/* sensor data */
-		update_sensor_data();
-		printk(" X=%d, Y=%d, Z=%d\n", app_sensor_data.x, app_sensor_data.y, app_sensor_data.z);
-		/* Send notification, the function sends notifications only if a client is subscribed */
-		my_lbs_send_sensor_notify(&app_sensor_data);
+		if (recording){
+			/* sensor data */
+			update_sensor_data();
+			printk(" X=%d, Y=%d, Z=%d\n", 
+				app_sensor_data.x, 
+				app_sensor_data.y, 
+				app_sensor_data.z);
+
+			/* Send notification, the function sends notifications only if a client is subscribed */
+			my_lbs_send_sensor_notify(&app_sensor_data);
+		}
+		
 		k_sleep(K_MSEC(NOTIFY_INTERVAL));
 	}
 }
@@ -132,7 +134,20 @@ static void button_changed(uint32_t button_state, uint32_t has_changed)
 		
 	}
 
+	if ((has_changed & USER_BUTTON_3) && (button_state & USER_BUTTON_3)){
+		recording = !recording;
+
+		if (recording){
+			dk_set_led_on(USER_LED);
+			printk("Recording...");
+		} else {
+			dk_set_led_off(USER_LED);
+			printk("Recording Stopped!");
+		}
+	}
+
 }
+
 static void on_connected(struct bt_conn *conn, uint8_t err)
 {
 	if (err) {

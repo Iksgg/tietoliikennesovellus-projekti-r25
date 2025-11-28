@@ -6,17 +6,16 @@ from sklearn.cluster import KMeans
 
 k= 6
 max_iteration= 1000
-tol= 1.0
+tol= 1.0e-10
 filepath = pathlib.Path(__file__).with_name("cleaned_data.csv")
-
+'''
 try:
     X = np.loadtxt(filepath, delimiter=";")
     print(X[:5])
 except FileNotFoundError:
     print("File not found")
-
+'''
 # Generates 6 random clusters of data will be change to use actual data
-""""
 centers = np.array([
     [1200,1500,1500],
     [1800,1500,1500],
@@ -26,18 +25,19 @@ centers = np.array([
     [1500,1500,1800]
 ])
 
-X, label = make_blobs(n_samples=1000, n_features=3, centers=centers, cluster_std=90, random_state=23)
+X, label = make_blobs(n_samples=1000, n_features=3, centers=centers, cluster_std=20, random_state=23)
 
 x= X[:,0]
 y= X[:,1]
 z= X[:,2]
-"""
+
 
 #Starting points for cluster centers 
 kmeans = KMeans(n_clusters=k, init='k-means++', 
                 n_init=10, random_state=23)
 kmeans.fit(X)
 init_centers = kmeans.cluster_centers_
+
 
 clusters={}
 for i in range(k):
@@ -89,6 +89,8 @@ for iteration in range(max_iteration):
 
     if iteration > 0 and not centers_changed(old_center, new_center, tol):
         print(f"Stoped at iteration {iteration}")
+        print(f"Shape: {new_center.shape}")
+        print(f"Centers:\n {new_center} ")
         break
 
 pred = predict_cluster(X,clusters)
@@ -116,7 +118,7 @@ names = {
     4: "Z Down",
     5: "Z Up"
 }
-
+'''
 for c_id in range(k):
     pts = X[pred == c_id]
     ax.scatter(pts[:,0],
@@ -124,6 +126,14 @@ for c_id in range(k):
                pts[:,2],
                 c=color[c_id],
                 label=f'{names[c_id]}')
+                
+            ''' 
+for id in range(k):
+    ax.scatter(new_center[id,0],
+               new_center[id,1],
+               new_center[id,2],
+                c=color[id],
+                label=f'{names[id]}')
 
 for i in clusters:
     center = clusters[i]['center']
@@ -145,3 +155,22 @@ ax.legend()
 ax.grid(True)
 
 plt.show()
+
+max_x = np.argmax(new_center[:,0])
+min_x = np.argmin(new_center[:,0])
+max_y = np.argmax(new_center[:,1])
+min_y = np.argmin(new_center[:,1])
+max_z = np.argmax(new_center[:,2])
+min_z = np.argmin(new_center[:,2])
+
+file = open("keskipisteet.h","a")
+file.write("int keskipisteet[6][3] = {\n")
+file.write(f"{{{new_center[max_x][0]:.2f}, {new_center[max_x][1]:.2f}, {new_center[max_x][2]:.2f}}},\n")
+file.write(f"{{{new_center[min_x][0]:.2f}, {new_center[min_x][1]:.2f}, {new_center[min_x][2]:.2f}}},\n")
+file.write(f"{{{new_center[max_y][0]:.2f}, {new_center[max_y][1]:.2f}, {new_center[max_y][2]:.2f}}},\n")
+file.write(f"{{{new_center[min_y][0]:.2f}, {new_center[min_y][1]:.2f}, {new_center[min_y][2]:.2f}}},\n")
+file.write(f"{{{new_center[max_z][0]:.2f}, {new_center[max_z][1]:.2f}, {new_center[max_z][2]:.2f}}},\n")
+file.write(f"{{{new_center[min_z][0]:.2f}, {new_center[min_z][1]:.2f}, {new_center[min_z][2]:.2f}}}\n")
+file.write("};\n")
+file.close()
+

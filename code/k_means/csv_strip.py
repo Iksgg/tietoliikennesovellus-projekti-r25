@@ -1,7 +1,7 @@
 import csv
 import pathlib
 
-filepath = pathlib.Path(__file__).with_name("mittaustiedot.csv")
+filepath = pathlib.Path(__file__).with_name("output.csv")
 
 data = []
 cleaned_data = []
@@ -11,7 +11,7 @@ drop_last_n = 3
 
 try:    
     with filepath.open("r") as measurement:
-        reader = csv.reader(measurement, delimiter=';')
+        reader = csv.reader(measurement, delimiter=',')
         for row in reader:
             if not row:
                 continue

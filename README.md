@@ -3,7 +3,7 @@ Tietoliikenteen sovellus projekti joka suoritetaan osana Tieto- ja viestintätek
 
 
 ## Arkkitehtuuri
-![Arkkitehtuuri kuva](documents/Arkkitehtuurikuva.drawio.png)
+![Arkkitehtuuri kuva](documents/arkkitehtuuri_kuva.png)
 
 ## Tavoitteet
 ### Mittaus

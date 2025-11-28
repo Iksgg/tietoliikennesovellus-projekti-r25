@@ -4,6 +4,7 @@ code/bleaktesti/myenv
 
 .vscode/
 
+*.csv
 
 .venv/
 venv/

@@ -140,8 +140,6 @@ void main(void)
 		dk_set_led_on(USER_LED2);
 		dk_set_led_on(USER_LED3);
 		dk_set_led_on(USER_LED4);
-		int result = calculateDistanceToAllCentrePointsAndSelectWinner(1440,1203,941);
-		printk("Distance calculation test, winner is centre point index = %d\n",result);
 		 
 		k_sleep(K_MSEC(1000));
 		

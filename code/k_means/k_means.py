@@ -6,9 +6,9 @@ from sklearn.cluster import KMeans
 
 k= 6
 max_iteration= 1000
-tol= 1.0e-10
+tol= 1.0
 filepath = pathlib.Path(__file__).with_name("cleaned_data.csv")
-'''
+
 try:
     X = np.loadtxt(filepath, delimiter=";")
     print(X[:5])
@@ -30,7 +30,7 @@ X, label = make_blobs(n_samples=1000, n_features=3, centers=centers, cluster_std
 x= X[:,0]
 y= X[:,1]
 z= X[:,2]
-
+'''
 
 #Starting points for cluster centers 
 kmeans = KMeans(n_clusters=k, init='k-means++', 
@@ -118,7 +118,7 @@ names = {
     4: "Z Down",
     5: "Z Up"
 }
-'''
+
 for c_id in range(k):
     pts = X[pred == c_id]
     ax.scatter(pts[:,0],
@@ -127,7 +127,7 @@ for c_id in range(k):
                 c=color[c_id],
                 label=f'{names[c_id]}')
                 
-            ''' 
+        
 for id in range(k):
     ax.scatter(new_center[id,0],
                new_center[id,1],
@@ -165,12 +165,12 @@ min_z = np.argmin(new_center[:,2])
 
 file = open("keskipisteet.h","a")
 file.write("int keskipisteet[6][3] = {\n")
-file.write(f"{{{new_center[max_x][0]:.2f}, {new_center[max_x][1]:.2f}, {new_center[max_x][2]:.2f}}},\n")
-file.write(f"{{{new_center[min_x][0]:.2f}, {new_center[min_x][1]:.2f}, {new_center[min_x][2]:.2f}}},\n")
-file.write(f"{{{new_center[max_y][0]:.2f}, {new_center[max_y][1]:.2f}, {new_center[max_y][2]:.2f}}},\n")
-file.write(f"{{{new_center[min_y][0]:.2f}, {new_center[min_y][1]:.2f}, {new_center[min_y][2]:.2f}}},\n")
-file.write(f"{{{new_center[max_z][0]:.2f}, {new_center[max_z][1]:.2f}, {new_center[max_z][2]:.2f}}},\n")
-file.write(f"{{{new_center[min_z][0]:.2f}, {new_center[min_z][1]:.2f}, {new_center[min_z][2]:.2f}}}\n")
+file.write(f"{{{new_center[max_x][0]:.0f}, {new_center[max_x][1]:.0f}, {new_center[max_x][2]:.0f}}},\n")
+file.write(f"{{{new_center[min_x][0]:.0f}, {new_center[min_x][1]:.0f}, {new_center[min_x][2]:.0f}}},\n")
+file.write(f"{{{new_center[max_y][0]:.0f}, {new_center[max_y][1]:.0f}, {new_center[max_y][2]:.0f}}},\n")
+file.write(f"{{{new_center[min_y][0]:.0f}, {new_center[min_y][1]:.0f}, {new_center[min_y][2]:.0f}}},\n")
+file.write(f"{{{new_center[max_z][0]:.0f}, {new_center[max_z][1]:.0f}, {new_center[max_z][2]:.0f}}},\n")
+file.write(f"{{{new_center[min_z][0]:.0f}, {new_center[min_z][1]:.0f}, {new_center[min_z][2]:.0f}}}\n")
 file.write("};\n")
 file.close()
 

@@ -59,7 +59,14 @@ void makeHundredFakeClassifications(void)
    varmistaaksesi, että etäisuuden laskenta ja luokittelu toimii varmasti tunnetulla
    itse keksimälläsi sensoridatalla ja itse keksimilläsi keskipisteillä.
    *******************************************/
-   printk("Make your own implementation for this function if you need this\n");
+   for(int i=0;i<6;i++) // suunta
+   {
+      for(int j=0;j<100;j++) // 100 kpl mittausta per suunta
+      {
+         int winnerIndex = calculateDistanceToAllCentrePointsAndSelectWinner(measurements[i][0],measurements[i][1],measurements[i][2]);
+         CM[i][winnerIndex] += 1;
+      }
+   }
 }
 
 void makeOneClassificationAndUpdateConfusionMatrix(int direction)
@@ -70,6 +77,11 @@ void makeOneClassificationAndUpdateConfusionMatrix(int direction)
    kutsutaan 100 kertaa yhden mittauksen ja sen luokittelun tekemiseksi.
    **************************************/
    printk("Make your own implementation for this function if you need this\n");
+
+   struct Measurement m = readADCValue();
+   int winnerIndex = calculateDistanceToAllCentrePointsAndSelectWinner(m.x, m.y, m.z);
+   CM[direction][winnerIndex] += 1;
+
 }
 
 int calculateDistanceToAllCentrePointsAndSelectWinner(int x,int y,int z)
@@ -83,21 +95,20 @@ int calculateDistanceToAllCentrePointsAndSelectWinner(int x,int y,int z)
   int d;
   int minIndex;
   int results[6];
-  for(int i = 0; i < 5; i++){
+  for(int i = 0; i < 6; i++){
      d = sqrt(pow((keskipisteet[i][0] - x),2) + pow((keskipisteet[i][1] - y),2) + pow((keskipisteet[i][2] - z),2));
      results[i] = d;
   }
    minIndex = findMin(results);
    printk("Selected centre point index: %d\n", minIndex);
 
-   printk("Make your own implementation for this function if you need this\n");
    return minIndex;
 }
 
 int findMin(int arr[]){
    int smallest = arr[0];
    int position = 0;
-   for(int i = 0; i < 5; i++){
+   for(int i = 0; i < 6; i++){
       if(arr[i] < smallest){
          smallest = arr[i];
          position = i;

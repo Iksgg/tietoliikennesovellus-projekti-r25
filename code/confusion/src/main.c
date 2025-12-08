@@ -29,7 +29,7 @@
 #define USER_BUTTON_3           DK_BTN3_MSK
 #define USER_BUTTON_4           DK_BTN4_MSK
 
-#define DEBUG 1  // 0 = changes direction when button 3 is pressed
+#define DEBUG 0  // 0 = changes direction when button 3 is pressed
                  // 1 = fake 100 measurements done to each 6 directions when 3 pressed.
 static int direction = -1;	// 0 = x direction high
 							// 1 = x directon low	

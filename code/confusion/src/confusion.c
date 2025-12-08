@@ -28,7 +28,7 @@ int CP[6][3]={
 };
 
 int measurements[6][3]={
-	                     {1,0,0},
+	                {1,0,0},
 						 {2,0,0},
 						 {0,1,0},
 						 {0,2,0},
@@ -77,11 +77,11 @@ void makeOneClassificationAndUpdateConfusionMatrix(int direction)
    kutsutaan 100 kertaa yhden mittauksen ja sen luokittelun tekemiseksi.
    **************************************/
    printk("Make your own implementation for this function if you need this\n");
-
-   struct Measurement m = readADCValue();
-   int winnerIndex = calculateDistanceToAllCentrePointsAndSelectWinner(m.x, m.y, m.z);
-   CM[direction][winnerIndex] += 1;
-
+for (int i = 0; i < 100; i++){
+      struct Measurement m = readADCValue();
+      int winnerIndex = calculateDistanceToAllCentrePointsAndSelectWinner(m.x, m.y, m.z);
+      CM[direction][winnerIndex] += 1;
+   }
 }
 
 int calculateDistanceToAllCentrePointsAndSelectWinner(int x,int y,int z)

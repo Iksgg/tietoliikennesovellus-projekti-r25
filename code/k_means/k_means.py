@@ -6,7 +6,7 @@ from sklearn.cluster import KMeans
 
 k= 6
 max_iteration= 1000
-tol= 1.0
+tol= 1.0e-4
 filepath = pathlib.Path(__file__).with_name("cleaned_data.csv")
 
 try:
@@ -14,6 +14,7 @@ try:
     print(X[:5])
 except FileNotFoundError:
     print("File not found")
+    
 '''
 # Generates 6 random clusters of data will be change to use actual data
 centers = np.array([
@@ -34,7 +35,7 @@ z= X[:,2]
 
 #Starting points for cluster centers 
 kmeans = KMeans(n_clusters=k, init='k-means++', 
-                n_init=10, random_state=23)
+                n_init=10)
 kmeans.fit(X)
 init_centers = kmeans.cluster_centers_
 
@@ -101,44 +102,28 @@ ax = fig.add_subplot(projection="3d")
 
 #Coloration for cluster
 color = {
-    0: "#0033cc",  # X down
-    1: "#66aaff",  # X up
-    2: "#008800",  # Y down
-    3: "#66ff66",  # Y up
-    4: "#cc0000",  # Z down
-    5: "#ff6666"   # Z up
+    0: "#0033cc",  
+    1: "#66aaff",  
+    2: "#008800",  
+    3: "#66ff66",  
+    4: "#cc0000",  
+    5: "#ff6666"   
 }
 
-#Names for cluster labels
-names = {
-    0: "X Down",
-    1: "X Up",
-    2: "Y Down",
-    3: "Y Up",
-    4: "Z Down",
-    5: "Z Up"
-}
-
+#Plotting of data points
 for c_id in range(k):
     pts = X[pred == c_id]
     ax.scatter(pts[:,0],
                pts[:,1],
                pts[:,2],
-                c=color[c_id],
-                label=f'{names[c_id]}')
+                c=color[c_id])
                 
-        
-for id in range(k):
-    ax.scatter(new_center[id,0],
-               new_center[id,1],
-               new_center[id,2],
-                c=color[id],
-                label=f'{names[id]}')
-
+#Plotting of cluster centers    
 for i in clusters:
     center = clusters[i]['center']
     ax.scatter(center[0],center[1],center[2],marker ='*', c='y', s=200)
 
+#Lines from center to data points
 for idx in range(X.shape[0]):
     c_id = pred[idx]
     center = clusters[c_id]['center']
@@ -151,11 +136,12 @@ for idx in range(X.shape[0]):
 ax.set_xlabel('X Label')
 ax.set_ylabel('Y Label')
 ax.set_zlabel('Z Label')
-ax.legend()
 ax.grid(True)
 
 plt.show()
 
+
+#Saves center to .h file
 max_x = np.argmax(new_center[:,0])
 min_x = np.argmin(new_center[:,0])
 max_y = np.argmax(new_center[:,1])

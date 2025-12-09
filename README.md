@@ -72,3 +72,4 @@ Matriisin perusteella voidaan todeta mallin tunnistaneen erinomaisesti kiihtyvyy
 Olemme OAMK Tieto- ja viestintätekniikan laiteläheisen ohjelmoinnin 2. vuosikurssin opiskelijoita.
 - Hietamäki Valtteri
 - Ikäläinen Sami
+

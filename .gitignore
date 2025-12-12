@@ -4,6 +4,12 @@ code/bleaktesti/myenv
 
 .vscode/
 
+CMakeLists.txt
+nrf5340dk_nrf5340_cpuapp_ns.overlay
+*.conf
+*.yaml
+*.sysbuild
+
 *.csv
 
 .venv/
